@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/ADMProduksiBeras20182019_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-9.34363909536,107.910197848],[-5.95923920772,112.159693836]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var overlay_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0
+        });
+        overlay_OSMStandard_0.addTo(map);
+        map.addLayer(overlay_OSMStandard_0);
+        function pop_ADMProduksiBeras20182019_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? Autolinker.link(String(feature.properties['id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['kota_jadi'] !== null ? Autolinker.link(String(feature.properties['kota_jadi'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['JML BERAS'] !== null ? Autolinker.link(String(feature.properties['JML BERAS'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ADMProduksiBeras20182019_1_0(feature) {
+            if (feature.properties['JML BERAS'] >= 0.000000 && feature.properties['JML BERAS'] <= 132200.000000 ) {
+                return {
+                pane: 'pane_ADMProduksiBeras20182019_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,251,255,1.0)',
+            }
+            }
+            if (feature.properties['JML BERAS'] >= 132200.000000 && feature.properties['JML BERAS'] <= 362736.000000 ) {
+                return {
+                pane: 'pane_ADMProduksiBeras20182019_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(115,179,216,1.0)',
+            }
+            }
+            if (feature.properties['JML BERAS'] >= 362736.000000 && feature.properties['JML BERAS'] <= 617025.000000 ) {
+                return {
+                pane: 'pane_ADMProduksiBeras20182019_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,48,107,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_ADMProduksiBeras20182019_1');
+        map.getPane('pane_ADMProduksiBeras20182019_1').style.zIndex = 401;
+        map.getPane('pane_ADMProduksiBeras20182019_1').style['mix-blend-mode'] = 'normal';
+        var layer_ADMProduksiBeras20182019_1 = new L.geoJson(json_ADMProduksiBeras20182019_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ADMProduksiBeras20182019_1',
+            onEachFeature: pop_ADMProduksiBeras20182019_1,
+            style: style_ADMProduksiBeras20182019_1_0,
+        });
+        bounds_group.addLayer(layer_ADMProduksiBeras20182019_1);
+        map.addLayer(layer_ADMProduksiBeras20182019_1);
+        setBounds();
+        var i = 0;
+        layer_ADMProduksiBeras20182019_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['kota_jadi'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['kota_jadi']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_ADMProduksiBeras20182019_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_ADMProduksiBeras20182019_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_ADMProduksiBeras20182019_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_ADMProduksiBeras20182019_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_ADMProduksiBeras20182019_1]);
+        });
+        </script>
+    </body>
+</html>
